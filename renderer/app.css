@@ -1,0 +1,96 @@
+:root {
+  --bg: #101418;
+  --panel: #171d24;
+  --line: #232c36;
+  --text: #e6edf3;
+  --muted: #8b98a5;
+  --accent: #3fb27f;
+  --danger: #e5534b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 'Segoe UI', system-ui, sans-serif;
+}
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .logo { height: 44px; width: auto; display: block; } /* wordmark trắng trong suốt — nổi trên nền tối */
+.brand h1 { font-size: 16px; margin: 0; font-weight: 600; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.dot.on { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.badge { color: var(--muted); border: 1px solid var(--line); padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+button.primary {
+  background: var(--accent); border: 0; color: #06130c; font-weight: 700;
+  padding: 8px 22px; border-radius: 8px; cursor: pointer; font-size: 14px;
+}
+button.primary.stop { background: var(--danger); color: #fff; }
+button.primary:disabled { opacity: 0.75; cursor: default; }
+button { cursor: pointer; }
+.spinner {
+  width: 13px; height: 13px; border-radius: 50%;
+  border: 2px solid rgba(6, 19, 12, 0.3); border-top-color: #06130c;
+  display: inline-block; vertical-align: -2px; margin-right: 8px;
+  animation: spin 0.7s linear infinite;
+}
+button.primary.stop .spinner { border-color: rgba(255, 255, 255, 0.35); border-top-color: #fff; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Apple-style scrollbars: hairline rounded pill, quiet track */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 152, 165, 0.28);
+  border-radius: 999px;
+  border: 2.5px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: rgba(139, 152, 165, 0.5); }
+::-webkit-scrollbar-corner { background: transparent; }
+.meta {
+  display: flex; gap: 24px; padding: 10px 18px; color: var(--muted); font-size: 12.5px;
+  border-bottom: 1px solid var(--line);
+}
+.msg { color: var(--danger); }
+.settings {
+  display: flex; gap: 12px; align-items: end; padding: 12px 18px;
+  background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap;
+}
+.settings label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.settings label.grow { flex: 1; min-width: 220px; }
+.settings input {
+  background: var(--bg); color: var(--text); border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px 8px; width: 120px; font-size: 13px;
+}
+.settings label.grow input { width: 100%; }
+.settings label .row { display: flex; align-items: center; gap: 6px; }
+.settings button {
+  background: var(--line); color: var(--text); border: 0; border-radius: 6px; padding: 8px 16px;
+}
+main { padding: 0 18px 18px; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
+th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.mono, .mono { font-family: Consolas, monospace; }
+td.empty { color: var(--muted); text-align: center; padding: 30px 0; }
+.copy { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 5px; padding: 3px 8px; font-size: 12px; }
+.copy:hover { color: var(--text); border-color: var(--muted); }
+.muted { color: var(--muted); }
+.quota { color: var(--muted); font-size: 12.5px; }
+.quota b { color: var(--text); }
+button.copy[disabled] { opacity: 0.4; cursor: wait; }
+.tag { font-size: 11px; padding: 2px 6px; border-radius: 8px; border: 1px solid var(--line); }
+.tag.ok { color: var(--accent); border-color: var(--accent); }
+.tag.revoked { color: var(--danger); border-color: var(--danger); }
+.row-revoked td { opacity: 0.55; }
+.mcp { align-items: flex-start; flex-direction: column; gap: 6px; }
+.mcp .mcp-line { display: flex; align-items: center; gap: 8px; font-size: 12.5px; }
+.mcp code {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+  padding: 3px 8px; font-size: 12px;
+}

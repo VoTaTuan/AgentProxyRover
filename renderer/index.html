@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'" />
+  <title>AgentProxy</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img class="logo" src="logo_white.png" alt="AgentProxy" />
+      <span class="dot" id="statusDot"></span>
+      <span class="badge" id="planBadge">FREE · 20 proxies</span>
+    </div>
+    <div class="head-actions">
+      <button id="btnToggle" class="primary">Connect</button>
+    </div>
+  </header>
+
+  <section class="meta">
+    <div>Your IP: <b id="publicIp">–</b></div>
+    <div id="quotaLine" class="quota"></div>
+    <div id="msg" class="msg"></div>
+  </section>
+
+  <section class="settings">
+    <label>Bind IP <input id="bindIp" placeholder="127.0.0.1" /></label>
+    <label>Port range
+      <span class="row">
+        <input id="portStart" type="number" min="1024" max="65535" />
+        <span class="muted">→</span>
+        <span id="portEnd" class="muted">8801+20</span>
+      </span>
+    </label>
+    <label>Count <input id="portCount" type="number" min="1" max="20" /></label>
+    <label>MCP port <input id="mcpPort" type="number" min="1024" max="65535" /></label>
+    <button id="btnSave">Save</button>
+  </section>
+
+  <section class="settings mcp">
+    <div class="mcp-line">
+      <span class="dot" id="mcpDot"></span>
+      <b>MCP for AI agents</b>
+      <span id="mcpTools" class="muted">–</span>
+    </div>
+    <div class="mcp-line">
+      <code class="mono" id="mcpUrl">–</code>
+      <button class="copy" id="btnCopyMcp">copy</button>
+    </div>
+    <div class="muted">Connect a local agent: <code class="mono" id="mcpCmd">–</code></div>
+  </section>
+
+  <main>
+    <table id="proxyTable">
+      <thead>
+        <tr><th>#</th><th>Proxy (local)</th><th>Country</th><th>Exit IP</th><th>Active</th><th class="num">Req</th><th class="num">↑ / ↓</th><th>OK / Fail</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="9" class="empty">Press <b>Connect</b> to fetch your 20 free proxies.</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
