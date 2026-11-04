@@ -23,7 +23,9 @@ jobs:
         run: npm ci
 
       - name: Build Windows exe (NSIS setup + portable)
-        run: npm run dist
+        # --publish never: electron-builder must not try to publish itself
+        # (it would demand GH_TOKEN); the release step below attaches the exes
+        run: npm run dist -- --publish never
 
       - name: Attach exes to the release
         uses: softprops/action-gh-release@v2
