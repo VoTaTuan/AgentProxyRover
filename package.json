@@ -34,6 +34,16 @@
       ],
       "icon": "assets/favicon.png"
     },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        { "target": "dmg", "arch": ["x64", "arm64"] },
+        { "target": "zip", "arch": ["x64", "arm64"] }
+      ],
+      "icon": "assets/favicon.png",
+      "artifactName": "AgentProxy-${version}-${arch}.${ext}",
+      "identity": null
+    },
     "nsis": {
       "oneClick": true,
       "perMachine": false,

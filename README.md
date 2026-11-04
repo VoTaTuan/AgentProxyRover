@@ -16,7 +16,7 @@ get up to **20 working proxies per public IP**, each pinned to its own local
 port, with per-proxy stats (requests, bytes up/down, OK/fail) live in the UI.
 
 <p align="center">
-  <img src="docs/screenshot-main.png" alt="AgentProxyRover main window — 20 local proxy endpoints" width="720" />
+  <img src="docs/screenshot-main.png" alt="AgentProxyRover main window — 20 local proxy endpoints" width="980" />
 </p>
 
 ## Highlights
@@ -89,11 +89,21 @@ curl -x http://127.0.0.1:8801 https://api.ipify.org   # exit through proxy #1
 
 ## Getting started
 
-### Download a build
+### Download a build (Windows)
 
-Grab the latest Windows installer or portable exe from
-[**Releases**](https://github.com/duonglabs/AgentProxyRover/releases), install,
-press **Connect** — done.
+Grab a ready-made exe from the
+**[Releases page](https://github.com/duonglabs/AgentProxyRover/releases)**
+(<https://github.com/duonglabs/AgentProxyRover/releases>) — pick the latest
+version and download one of:
+
+| File | What it is |
+| --- | --- |
+| `AgentProxy-Setup-<version>.exe` | Windows installer (per-user, Start Menu shortcut) |
+| `AgentProxy-Portable-<version>.exe` | Single portable exe — no install, just run |
+
+Download one, run it, press **Connect** — done.
+> Note: the builds are not code-signed, so Windows SmartScreen may show a
+> warning — click **More info → Run anyway**.
 
 ### Run from source
 
@@ -153,7 +163,7 @@ publish. That means:
 ## Sponsor
 
 <p align="center">
-  <a href="https://shiplo.site"><img src="docs/sponsor-shiplo.png" alt="Sponsored by Shiplo.site" width="360" /></a>
+  <a href="https://shiplo.site"><img src="docs/sponsor-shiplo.svg" alt="Sponsored by Shiplo.site" width="360" /></a>
 </p>
 
 Sponsored by **[Shiplo.site](https://shiplo.site)** — the hosted pool service
