@@ -106,6 +106,14 @@ app.whenReady().then(async () => {
       return { ok: false, error: e.message };
     }
   });
+  ipcMain.handle('reload', async () => {
+    try {
+      await manager.fetchAllocation();
+      return { ok: true, state: fullState() };
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  });
   ipcMain.handle('save-settings', async (_e, patch) => {
     try {
       const settings = manager.saveSettings(patch);

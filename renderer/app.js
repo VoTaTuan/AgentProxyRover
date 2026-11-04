@@ -140,5 +140,20 @@ $('btnSave').onclick = async () => {
   render(res.ok && res.state ? res.state : await window.api.state());
 };
 
+$('btnReload').onclick = async () => {
+  const btn = $('btnReload');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Reloading…';
+  try {
+    const res = await window.api.reload();
+    $('msg').textContent = res.ok ? 'Allocation refreshed' : res.error;
+    render(res.ok && res.state ? res.state : await window.api.state());
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⟳ Reload';
+  }
+};
+
 window.api.onState(render);
 window.api.state().then(render);
