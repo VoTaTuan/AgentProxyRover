@@ -16,7 +16,7 @@ get up to **20 working proxies per public IP**, each pinned to its own local
 port, with per-proxy stats (requests, bytes up/down, OK/fail) live in the UI.
 
 <p align="center">
-  <img src="docs/screenshot-main.png" alt="AgentProxyRover main window — 20 local proxy endpoints" width="980" />
+  <img src="docs/screenshot-main-v2.png" alt="AgentProxyRover main window — 20 local proxy endpoints" width="980" />
 </p>
 
 ## Highlights
@@ -84,7 +84,7 @@ curl -x http://127.0.0.1:8801 https://api.ipify.org   # exit through proxy #1
 ```
 
 <p align="center">
-  <img src="docs/screenshot-mcp.png" alt="MCP for AI agents panel" width="720" />
+  <img src="docs/screenshot-mcp-v2.png" alt="MCP for AI agents panel" width="720" />
 </p>
 
 ## Getting started
