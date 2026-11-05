@@ -79,9 +79,9 @@
         <option value="light">Light</option>
       </select>
     </label>
-    <button id="btnSave">Save</button>
-    <button id="btnExportSettings" style="background: #8b98a5; color: #101418;">⬇ Export</button>
-    <button id="btnImportSettings" style="background: #8b98a5; color: #101418;">⬆ Import</button>
+    <button id="btnSave" title="Save all settings">Save</button>
+    <button id="btnExportSettings" style="background: #8b98a5; color: #101418;" title="Export all settings to JSON file (backup)">⬇ Export</button>
+    <button id="btnImportSettings" style="background: #8b98a5; color: #101418;" title="Import settings from JSON file (restore backup)">⬆ Import</button>
     <input type="file" id="importFile" style="display: none;" accept=".json" />
   </section>
 
@@ -100,24 +100,24 @@
 
   <main>
     <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
-      <label style="display: flex; align-items: center; gap: 6px; color: #8b98a5; font-size: 12px; margin: 0;">
+      <label style="display: flex; align-items: center; gap: 6px; color: #8b98a5; font-size: 12px; margin: 0;" title="Reload mode: Soft (UI only, Ctrl+R) | Full (restart, Ctrl+Shift+R) | Hot (dev, Ctrl+Alt+R)">
         Reload:
         <select id="reloadMode" style="padding: 4px 8px; background: #171d24; color: #e6edf3; border: 1px solid #232c36; border-radius: 4px; cursor: pointer; font-size: 12px;">
-          <option value="soft">Soft (UI only)</option>
-          <option value="full">Full (Restart app)</option>
-          <option value="hot">Hot Module (Dev)</option>
+          <option value="soft" title="Ctrl+R: Reload UI only, proxy keeps running">Soft (UI only)</option>
+          <option value="full" title="Ctrl+Shift+R: Full app restart, disconnect & reconnect">Full (Restart app)</option>
+          <option value="hot" title="Ctrl+Alt+R: Dev mode - auto reload on changes (requires electron-reload)">Hot Module (Dev)</option>
         </select>
       </label>
-      <button id="btnReloadApp" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px;">🔄 Reload</button>
-      <button id="btnShowLogs" style="padding: 8px 16px; background: #4a5568; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Logs</button>
-      <button id="btnClearLogs" style="padding: 8px 16px; background: #c53030; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">🧹 Clear</button>
+      <button id="btnReloadApp" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px;" title="Click to reload (or use Ctrl+R / Ctrl+Shift+R / Ctrl+Alt+R)">🔄 Reload</button>
+      <button id="btnShowLogs" style="padding: 8px 16px; background: #4a5568; color: white; border: none; border-radius: 4px; cursor: pointer;" title="Show/hide console logs">📋 Logs</button>
+      <button id="btnClearLogs" style="padding: 8px 16px; background: #c53030; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;" title="Clear all logs">🧹 Clear</button>
     </div>
 
     <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
       <input type="checkbox" id="selectAllProxies" title="Select/deselect all proxies" />
-      <span id="selectedCount" style="color: #8b98a5; font-size: 13px;">0 selected</span>
-      <button id="btnBatchRotate" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; display: none; font-weight: 600;">⟳ Rotate Selected</button>
-      <button id="btnBatchCopy" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; display: none; font-weight: 600;">📋 Copy Selected</button>
+      <span id="selectedCount" style="color: #8b98a5; font-size: 13px;" title="Number of proxies selected for batch operations">0 selected</span>
+      <button id="btnBatchRotate" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; display: none; font-weight: 600;" title="Rotate all selected proxies (get new IPs, uses 1 reset per proxy)">⟳ Rotate Selected</button>
+      <button id="btnBatchCopy" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; display: none; font-weight: 600;" title="Copy all selected proxy addresses to clipboard (one per line)">📋 Copy Selected</button>
     </div>
     <table id="proxyTable">
       <thead>
