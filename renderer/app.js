@@ -204,6 +204,14 @@ const fmtCountry = (c) => {
   return city.length ? `${cap(country)} · ${cap(city.join('-'))}` : cap(country);
 };
 
+function showToast(message, duration = 3000) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), duration);
+}
+
 function updateBatchUI() {
   const checked = document.querySelectorAll('.proxy-checkbox:checked').length;
   const allCheckboxes = document.querySelectorAll('.proxy-checkbox');

@@ -71,6 +71,34 @@ button.primary.stop .spinner { border-color: rgba(255, 255, 255, 0.35); border-t
 }
 ::-webkit-scrollbar-thumb:hover { background-color: rgba(139, 152, 165, 0.5); }
 ::-webkit-scrollbar-corner { background: transparent; }
+
+/* Toast notifications */
+.toast {
+  position: fixed; bottom: 20px; right: 20px;
+  background: var(--panel); color: var(--text); padding: 12px 16px;
+  border-radius: 8px; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+  z-index: 9999; max-width: 300px; font-size: 13px;
+}
+@keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(400px); opacity: 0; } }
+
+/* Status badge */
+.status-badge { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.status-online { background: #3fb27f; }
+.status-offline { background: #e5534b; }
+.status-warning { background: #ffc55c; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .settings { flex-direction: column; gap: 8px; }
+  .settings label { width: 100%; }
+  .settings input { width: 100%; }
+  table { font-size: 11px; }
+  th, td { padding: 6px 8px; }
+  .badge { font-size: 11px; }
+  .toast { width: calc(100% - 40px); right: 20px; }
+}
 .meta {
   display: flex; gap: 24px; padding: 10px 18px; color: var(--muted); font-size: 12.5px;
   border-bottom: 1px solid var(--line);
