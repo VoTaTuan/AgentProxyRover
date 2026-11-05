@@ -1,0 +1,89 @@
+{
+  "app": {
+    "title": "AgentProxy",
+    "subtitle": "FREE · 20 proxies"
+  },
+  "header": {
+    "reload": "⟳ Reload",
+    "reloadHint": "Refresh allocation from backend",
+    "connect": "Connect",
+    "disconnect": "Disconnect"
+  },
+  "meta": {
+    "yourIp": "Your IP",
+    "quotaResets": "Proxy resets",
+    "left": "left",
+    "window": "window",
+    "used": "used",
+    "nextFree": "next free",
+    "totalResets": "total lifetime resets"
+  },
+  "settings": {
+    "bindIp": "Bind IP",
+    "portRange": "Port range",
+    "count": "Count",
+    "mcpPort": "MCP port",
+    "rotationStrategy": "Rotation Strategy",
+    "healthCheckInterval": "Health Check Interval",
+    "quotaAlertThreshold": "Quota Alert Threshold",
+    "language": "Language",
+    "save": "Save",
+    "strategies": {
+      "manual": "Manual (click to rotate)",
+      "autoFail": "Auto on failures",
+      "autoSlow": "Auto on slow latency (>500ms)",
+      "autoBoth": "Auto on both conditions"
+    },
+    "intervals": {
+      "perRequest": "Per request",
+      "1min": "Every 1 minute",
+      "5min": "Every 5 minutes",
+      "10min": "Every 10 minutes",
+      "manual": "Manual only"
+    },
+    "thresholds": {
+      "50": "Alert at 50% used",
+      "70": "Alert at 70% used",
+      "80": "Alert at 80% used",
+      "90": "Alert at 90% used",
+      "100": "Never alert"
+    }
+  },
+  "mcp": {
+    "title": "MCP for AI agents",
+    "tools": "tools",
+    "unavailable": "unavailable",
+    "off": "off",
+    "on": "on",
+    "connect": "Connect a local agent",
+    "copy": "copy"
+  },
+  "table": {
+    "index": "#",
+    "proxy": "Proxy (local)",
+    "country": "Country",
+    "exitIp": "Exit IP",
+    "health": "Health",
+    "active": "Active",
+    "requests": "Req",
+    "bandwidth": "↑ / ↓",
+    "stats": "OK / Fail",
+    "actions": "Actions",
+    "rotate": "Get a different exit IP (uses 1 reset)",
+    "copy": "copy",
+    "revoked": "REVOKED",
+    "active_status": "ACTIVE",
+    "empty": "Press Connect to fetch your 20 free proxies."
+  },
+  "logs": {
+    "show": "📋 Logs",
+    "clear": "🧹 Clear",
+    "title": "📋 Logs"
+  },
+  "messages": {
+    "connecting": "Connecting…",
+    "disconnecting": "Disconnecting…",
+    "refreshed": "Allocation refreshed",
+    "quotaAlert": "⚠️ Quota alert: {percent}% used ({used}/{limit} resets)"
+  }
+}

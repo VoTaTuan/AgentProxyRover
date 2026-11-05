@@ -1,0 +1,89 @@
+{
+  "app": {
+    "title": "AgentProxy",
+    "subtitle": "MIỄN PHÍ · 20 proxy"
+  },
+  "header": {
+    "reload": "⟳ Tải lại",
+    "reloadHint": "Cập nhật từ backend",
+    "connect": "Kết nối",
+    "disconnect": "Ngắt kết nối"
+  },
+  "meta": {
+    "yourIp": "IP của bạn",
+    "quotaResets": "Reset Proxy",
+    "left": "còn lại",
+    "window": "cửa sổ",
+    "used": "đã dùng",
+    "nextFree": "reset tiếp theo lúc",
+    "totalResets": "tổng reset suốt đời"
+  },
+  "settings": {
+    "bindIp": "Bind IP",
+    "portRange": "Dải port",
+    "count": "Số lượng",
+    "mcpPort": "MCP port",
+    "rotationStrategy": "Chiến lược Xoay IP",
+    "healthCheckInterval": "Khoảng kiểm tra",
+    "quotaAlertThreshold": "Ngưỡng cảnh báo Quota",
+    "language": "Ngôn ngữ",
+    "save": "Lưu",
+    "strategies": {
+      "manual": "Thủ công (click để xoay)",
+      "autoFail": "Tự động khi lỗi",
+      "autoSlow": "Tự động khi chậm (>500ms)",
+      "autoBoth": "Tự động cả hai điều kiện"
+    },
+    "intervals": {
+      "perRequest": "Mỗi request",
+      "1min": "Mỗi 1 phút",
+      "5min": "Mỗi 5 phút",
+      "10min": "Mỗi 10 phút",
+      "manual": "Chỉ thủ công"
+    },
+    "thresholds": {
+      "50": "Cảnh báo ở 50% dùng",
+      "70": "Cảnh báo ở 70% dùng",
+      "80": "Cảnh báo ở 80% dùng",
+      "90": "Cảnh báo ở 90% dùng",
+      "100": "Không cảnh báo"
+    }
+  },
+  "mcp": {
+    "title": "MCP cho AI agents",
+    "tools": "công cụ",
+    "unavailable": "không khả dụng",
+    "off": "tắt",
+    "on": "bật",
+    "connect": "Kết nối agent cục bộ",
+    "copy": "sao chép"
+  },
+  "table": {
+    "index": "#",
+    "proxy": "Proxy (local)",
+    "country": "Quốc gia",
+    "exitIp": "Exit IP",
+    "health": "Sức khỏe",
+    "active": "Hoạt động",
+    "requests": "Request",
+    "bandwidth": "↑ / ↓",
+    "stats": "Thành công / Lỗi",
+    "actions": "Hành động",
+    "rotate": "Lấy IP khác (dùng 1 lần reset)",
+    "copy": "sao chép",
+    "revoked": "ĐÃ TỪ CHỐI",
+    "active_status": "HOẠT ĐỘNG",
+    "empty": "Bấm Kết nối để lấy 20 proxy miễn phí."
+  },
+  "logs": {
+    "show": "📋 Nhật ký",
+    "clear": "🧹 Xóa",
+    "title": "📋 Nhật ký"
+  },
+  "messages": {
+    "connecting": "Đang kết nối…",
+    "disconnecting": "Đang ngắt kết nối…",
+    "refreshed": "Đã cập nhật allocation",
+    "quotaAlert": "⚠️ Cảnh báo Quota: {percent}% dùng ({used}/{limit} reset)"
+  }
+}

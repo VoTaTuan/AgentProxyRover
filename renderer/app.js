@@ -10,6 +10,54 @@ const fb = (n) => {
   return (i ? n.toFixed(n >= 100 || !n ? 0 : 1) : n) + ' ' + u[i];
 };
 
+async function initI18n() {
+  const saved = localStorage.getItem('agentproxy-lang') || 'en';
+  await i18n.load(saved);
+  $('languageSelect').value = i18n.getLocale();
+  translate();
+}
+
+function translate() {
+  $('planBadge').textContent = i18n.t('app.subtitle');
+  $('btnReload').textContent = i18n.t('header.reload');
+  $('btnReload').title = i18n.t('header.reloadHint');
+
+  const rotOpts = $('rotationStrategy')?.querySelectorAll('option');
+  if (rotOpts) {
+    rotOpts[0].textContent = i18n.t('settings.strategies.manual');
+    rotOpts[1].textContent = i18n.t('settings.strategies.autoFail');
+    rotOpts[2].textContent = i18n.t('settings.strategies.autoSlow');
+    rotOpts[3].textContent = i18n.t('settings.strategies.autoBoth');
+  }
+
+  const healthOpts = $('healthCheckInterval')?.querySelectorAll('option');
+  if (healthOpts) {
+    healthOpts[0].textContent = i18n.t('settings.intervals.perRequest');
+    healthOpts[1].textContent = i18n.t('settings.intervals.1min');
+    healthOpts[2].textContent = i18n.t('settings.intervals.5min');
+    healthOpts[3].textContent = i18n.t('settings.intervals.10min');
+    healthOpts[4].textContent = i18n.t('settings.intervals.manual');
+  }
+
+  const quotaOpts = $('quotaAlertThreshold')?.querySelectorAll('option');
+  if (quotaOpts) {
+    quotaOpts[0].textContent = i18n.t('settings.thresholds.50');
+    quotaOpts[1].textContent = i18n.t('settings.thresholds.70');
+    quotaOpts[2].textContent = i18n.t('settings.thresholds.80');
+    quotaOpts[3].textContent = i18n.t('settings.thresholds.90');
+    quotaOpts[4].textContent = i18n.t('settings.thresholds.100');
+  }
+
+  $('btnSave').textContent = i18n.t('settings.save');
+  $('btnShowLogs').textContent = i18n.t('logs.show');
+  $('btnClearLogs').textContent = i18n.t('logs.clear');
+
+  const headers = $('proxyTable')?.querySelectorAll('thead th');
+  if (headers && headers.length >= 10) {
+    headers[9].textContent = i18n.t('table.actions');
+  }
+}
+
 function renderMcp(state) {
   const m = state.mcp ?? { running: false, tools: [] };
   $('mcpDot').classList.toggle('on', !!m.running);
@@ -185,8 +233,14 @@ $('btnReload').onclick = async () => {
   }
 };
 
+$('languageSelect').onchange = async (e) => {
+  await i18n.load(e.target.value);
+  translate();
+  render(await window.api.state());
+};
+
 window.api.onState(render);
-window.api.state().then(render);
+initI18n().then(() => window.api.state().then(render));
 
 // Logs functionality
 const logs = [];
