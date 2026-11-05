@@ -10,6 +10,12 @@ const fb = (n) => {
   return (i ? n.toFixed(n >= 100 || !n ? 0 : 1) : n) + ' ' + u[i];
 };
 
+function initTheme() {
+  const saved = localStorage.getItem('agentproxy-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  $('themeSelect').value = saved;
+}
+
 async function initI18n() {
   const saved = localStorage.getItem('agentproxy-lang') || 'en';
   await i18n.load(saved);
@@ -61,6 +67,12 @@ function translate() {
       const opt = $('quotaAlertThreshold')?.querySelector(`option:nth-child(${i+1})`);
       if (opt) opt.textContent = t(k);
     });
+
+  const themeOpts = $('themeSelect')?.querySelectorAll('option');
+  if (themeOpts) {
+    themeOpts[0].textContent = t('settings.themes.dark');
+    themeOpts[1].textContent = t('settings.themes.light');
+  }
 
   // Buttons
   $('btnSave').textContent = t('settings.save');
@@ -262,7 +274,14 @@ $('languageSelect').onchange = async (e) => {
   render(await window.api.state());
 };
 
+$('themeSelect').onchange = (e) => {
+  const theme = e.target.value;
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('agentproxy-theme', theme);
+};
+
 window.api.onState(render);
+initTheme();
 initI18n().then(() => window.api.state().then(render));
 
 // Logs functionality

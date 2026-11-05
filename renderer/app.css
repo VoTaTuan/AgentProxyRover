@@ -7,6 +7,26 @@
   --accent: #3fb27f;
   --danger: #e5534b;
 }
+
+[data-theme="light"] {
+  --bg: #fafbfc;
+  --panel: #f6f8fa;
+  --line: #d0d7de;
+  --text: #24292f;
+  --muted: #656d76;
+  --accent: #1f883d;
+  --danger: #d1242f;
+}
+
+[data-theme="dark"] {
+  --bg: #101418;
+  --panel: #171d24;
+  --line: #232c36;
+  --text: #e6edf3;
+  --muted: #8b98a5;
+  --accent: #3fb27f;
+  --danger: #e5534b;
+}
 * { box-sizing: border-box; }
 body {
   margin: 0;

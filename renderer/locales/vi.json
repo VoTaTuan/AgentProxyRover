@@ -28,7 +28,12 @@
     "healthCheckInterval": "Khoảng kiểm tra",
     "quotaAlertThreshold": "Ngưỡng cảnh báo Quota",
     "language": "Ngôn ngữ",
+    "theme": "Chủ đề",
     "save": "Lưu",
+    "themes": {
+      "dark": "Tối",
+      "light": "Sáng"
+    },
     "strategies": {
       "manual": "Thủ công (click để xoay)",
       "autoFail": "Tự động khi lỗi",

@@ -28,7 +28,12 @@
     "healthCheckInterval": "Health Check Interval",
     "quotaAlertThreshold": "Quota Alert Threshold",
     "language": "Language",
+    "theme": "Theme",
     "save": "Save",
+    "themes": {
+      "dark": "Dark",
+      "light": "Light"
+    },
     "strategies": {
       "manual": "Manual (click to rotate)",
       "autoFail": "Auto on failures",
