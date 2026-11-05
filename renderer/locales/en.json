@@ -30,6 +30,8 @@
     "language": "Language",
     "theme": "Theme",
     "save": "Save",
+    "export": "Export",
+    "import": "Import",
     "themes": {
       "dark": "Dark",
       "light": "Light"

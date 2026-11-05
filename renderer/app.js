@@ -339,6 +339,80 @@ $('btnBatchCopy').onclick = () => {
   setTimeout(() => btn.textContent = original, 1500);
 };
 
+$('btnExportSettings').onclick = async () => {
+  const state = await window.api.state();
+  const settings = {
+    bindIp: state.bindIp,
+    portStart: state.portStart,
+    portCount: state.portCount,
+    mcpPort: state.mcpPort,
+    rotationStrategy: state.rotationStrategy,
+    healthCheckInterval: state.healthCheckInterval,
+    quotaAlertThreshold: state.quotaAlertThreshold,
+    theme: localStorage.getItem('agentproxy-theme') || 'dark',
+    language: i18n.getLocale(),
+    exportedAt: new Date().toISOString(),
+  };
+
+  const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `agentproxy-settings-${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  $('msg').textContent = '✓ Settings exported';
+  setTimeout(() => $('msg').textContent = '', 2000);
+};
+
+$('btnImportSettings').onclick = () => {
+  $('importFile').click();
+};
+
+$('importFile').onchange = async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const imported = JSON.parse(text);
+
+    const res = await window.api.saveSettings({
+      bindIp: imported.bindIp ?? '127.0.0.1',
+      portStart: imported.portStart ?? 8801,
+      portCount: imported.portCount ?? 20,
+      mcpPort: imported.mcpPort ?? 6789,
+      rotationStrategy: imported.rotationStrategy ?? 'manual',
+      healthCheckInterval: imported.healthCheckInterval ?? '60000',
+      quotaAlertThreshold: imported.quotaAlertThreshold ?? 80,
+    });
+
+    if (imported.theme) {
+      document.documentElement.setAttribute('data-theme', imported.theme);
+      localStorage.setItem('agentproxy-theme', imported.theme);
+      $('themeSelect').value = imported.theme;
+    }
+    if (imported.language) {
+      await i18n.load(imported.language);
+      $('languageSelect').value = imported.language;
+      translate();
+    }
+
+    if (res.ok) {
+      $('msg').textContent = '✓ Settings imported successfully';
+      render(res.state || await window.api.state());
+    } else {
+      $('msg').textContent = '❌ Import failed: ' + res.error;
+    }
+    setTimeout(() => $('msg').textContent = '', 3000);
+  } catch (err) {
+    $('msg').textContent = '❌ Invalid file: ' + err.message;
+  }
+
+  $('importFile').value = '';
+};
+
 window.api.onState(render);
 initTheme();
 initI18n().then(() => window.api.state().then(render));
