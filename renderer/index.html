@@ -36,6 +36,32 @@
     </label>
     <label>Count <input id="portCount" type="number" min="1" max="20" /></label>
     <label>MCP port <input id="mcpPort" type="number" min="1024" max="65535" /></label>
+    <label>Rotation Strategy
+      <select id="rotationStrategy">
+        <option value="manual">Manual (click to rotate)</option>
+        <option value="auto-fail">Auto on failures</option>
+        <option value="auto-slow">Auto on slow latency (&gt;500ms)</option>
+        <option value="auto-both">Auto on both conditions</option>
+      </select>
+    </label>
+    <label>Health Check Interval
+      <select id="healthCheckInterval">
+        <option value="perrequest">Per request</option>
+        <option value="60000">Every 1 minute</option>
+        <option value="300000">Every 5 minutes</option>
+        <option value="600000">Every 10 minutes</option>
+        <option value="manual">Manual only</option>
+      </select>
+    </label>
+    <label>Quota Alert Threshold
+      <select id="quotaAlertThreshold">
+        <option value="50">Alert at 50% used</option>
+        <option value="70">Alert at 70% used</option>
+        <option value="80">Alert at 80% used</option>
+        <option value="90">Alert at 90% used</option>
+        <option value="100">Never alert</option>
+      </select>
+    </label>
     <button id="btnSave">Save</button>
   </section>
 
@@ -53,14 +79,23 @@
   </section>
 
   <main>
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <button id="btnShowLogs" style="padding: 8px 16px; background: #4a5568; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Logs</button>
+      <button id="btnClearLogs" style="padding: 8px 16px; background: #c53030; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">🧹 Clear</button>
+    </div>
+
     <table id="proxyTable">
       <thead>
-        <tr><th>#</th><th>Proxy (local)</th><th>Country</th><th>Exit IP</th><th>Active</th><th class="num">Req</th><th class="num">↑ / ↓</th><th>OK / Fail</th><th>Actions</th></tr>
+        <tr><th>#</th><th>Proxy (local)</th><th>Country</th><th>Exit IP</th><th>Health</th><th>Active</th><th class="num">Req</th><th class="num">↑ / ↓</th><th>OK / Fail</th><th>Actions</th></tr>
       </thead>
       <tbody id="rows">
         <tr><td colspan="9" class="empty">Press <b>Connect</b> to fetch your 20 free proxies.</td></tr>
       </tbody>
     </table>
+
+    <div id="logsPanel" style="display: none; margin-top: 20px; border: 1px solid #555; border-radius: 4px; background: #0a0a0a; width: 100%; height: 60vh; max-height: 800px; flex-direction: column;">
+      <div id="logsContent" style="background: #0a0a0a; color: #0f0; padding: 12px; height: 100%; overflow-y: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-word; line-height: 1.5;"></div>
+    </div>
   </main>
 
   <script src="app.js"></script>

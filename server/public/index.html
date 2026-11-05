@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy Pool Manager - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>🌐 Proxy Pool Manager</h1>
+      <div class="status">
+        <span id="serverStatus" class="status-indicator">● Offline</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="devices">Thiết Bị</button>
+    <button class="tab-btn" data-tab="proxies">Proxies</button>
+    <button class="tab-btn" data-tab="metrics">Thống Kê</button>
+    <button class="tab-btn" data-tab="logs">Logs</button>
+  </nav>
+
+  <div class="container">
+    <!-- Dashboard Tab -->
+    <div class="tab-content active" id="dashboard">
+      <div class="info-box" style="background: #fff3cd; border-left-color: #ff9800; margin-bottom: 20px;">
+        <h3 style="margin-bottom: 10px;">📱 Kết Nối Desktop App</h3>
+        <p>Hãy chạy desktop app để bắt đầu sync proxy data:</p>
+        <code style="display: block; background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px;">
+          npm start
+        </code>
+        <p style="font-size: 12px; margin-top: 10px;">✅ Desktop app sẽ tự động kết nối tới http://localhost:3021</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <button onclick="syncNow()" class="btn btn-primary">🔗 Kết Nối & Sync</button>
+        <button onclick="location.reload()" class="btn btn-primary">🔄 Làm Mới</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>📱 Thiết Bị Online</h3>
+          <p class="stat-value" id="devicesOnline">0</p>
+          <p class="stat-label">/ <span id="devicesTotal">0</span> tổng</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>✅ Proxies Hoạt Động</h3>
+          <p class="stat-value" id="proxiesHealthy">0</p>
+          <p class="stat-label">/ <span id="proxiesTotal">0</span> tổng</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>🌍 Quốc Gia Có Sẵn</h3>
+          <p class="stat-value" id="countriesCount">0</p>
+          <p class="stat-label">nước</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>⚡ Sức Khỏe Trung Bình</h3>
+          <p class="stat-value" id="avgHealth">0%</p>
+          <p class="stat-label">health</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🎯 Chọn Proxy Test</h2>
+        <div class="select-row">
+          <select id="countryFilter">
+            <option value="">Tất cả quốc gia</option>
+          </select>
+          <select id="strategyFilter">
+            <option value="bestHealth">Best Health (Khỏe nhất)</option>
+            <option value="leastUsed">Least Used (Ít dùng)</option>
+            <option value="roundRobin">Round Robin (Xoay vòng)</option>
+          </select>
+          <button onclick="selectProxy()" class="btn btn-primary">Chọn Proxy</button>
+        </div>
+        <div id="selectedProxy" class="info-box" style="display: none;">
+          <p><strong>Proxy được chọn:</strong></p>
+          <p id="proxyInfo"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Devices Tab -->
+    <div class="tab-content" id="devices">
+      <h2>📱 Danh Sách Thiết Bị</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID Thiết Bị</th>
+            <th>Tên</th>
+            <th>Trạng Thái</th>
+            <th>Lần Kiểm Tra</th>
+            <th>Proxies</th>
+          </tr>
+        </thead>
+        <tbody id="devicesTable">
+          <tr><td colspan="5" style="text-align: center;">Đang tải...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Proxies Tab -->
+    <div class="tab-content" id="proxies">
+      <h2>🌐 Danh Sách Proxies</h2>
+      <div class="filter-row">
+        <input type="text" id="proxySearch" placeholder="Tìm kiếm theo quốc gia..." style="padding: 8px; width: 200px;">
+        <span id="proxyCount" class="badge">0 proxies</span>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Proxy (Local)</th>
+            <th>Quốc Gia</th>
+            <th>Exit IP</th>
+            <th>Sức Khỏe</th>
+            <th>Trạng Thái</th>
+            <th>Requests</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="proxiesTable">
+          <tr><td colspan="7" style="text-align: center;">Đang tải...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Metrics Tab -->
+    <div class="tab-content" id="metrics">
+      <h2>📊 Thống Kê & Metrics</h2>
+
+      <div class="section">
+        <h3>🗺️ Thống Kê Theo Quốc Gia</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Quốc Gia</th>
+              <th>Số Proxies</th>
+              <th>Online</th>
+              <th>Sức Khỏe Trung Bình</th>
+            </tr>
+          </thead>
+          <tbody id="countriesTable">
+            <tr><td colspan="4" style="text-align: center;">Đang tải...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>⚙️ Cấu Hình</h3>
+        <div class="config-box">
+          <p><strong>Database:</strong> <code>./data/pool.db</code></p>
+          <p><strong>Server Port:</strong> <code id="serverPort">3021</code></p>
+          <p><strong>Server URL:</strong> <code id="serverUrl">http://localhost:3021</code></p>
+          <p><strong>Device Sync Interval:</strong> <code>30 giây</code></p>
+          <p><strong>Metrics Retention:</strong> <code>7 ngày</code></p>
+          <button onclick="cleanupMetrics()" class="btn btn-warning">🧹 Xóa Metrics Cũ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logs Tab -->
+    <div class="tab-content" id="logs">
+      <h2>📋 Server Logs</h2>
+      <div style="margin-bottom: 10px;">
+        <button onclick="clearLogs()" class="btn btn-warning" style="font-size: 12px;">🧹 Xóa Logs</button>
+        <label style="margin-left: 20px;">
+          <input type="checkbox" id="autoScroll" checked> Auto-scroll
+        </label>
+      </div>
+      <div id="logsContainer" style="background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 5px; height: 500px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; border: 1px solid #333;">
+        <div id="logsList" style="white-space: pre-wrap; word-break: break-all;"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Proxy Pool Manager • Tự động quản lý & cân bằng proxies</p>
+    <p>Cập nhật lần cuối: <span id="lastUpdate">--:--:--</span></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

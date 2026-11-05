@@ -35,9 +35,26 @@ function renderQuota(state) {
   const next = q.nextResetAt
     ? ` · next free ${new Date(q.nextResetAt).toLocaleTimeString('vi-VN')}`
     : '';
+  const usedPercent = Math.round(((limit - left) / limit) * 100);
   el.innerHTML =
-    `Proxy resets: <b>${left}/${limit}</b> left (window ${mins} min, ` +
+    `Proxy resets: <b>${left}/${limit}</b> left (${usedPercent}% used, window ${mins} min, ` +
     `used ${q.used ?? 0}${next}) — total lifetime resets: <b>${q.totalResets ?? 0}</b>`;
+}
+
+function checkQuotaAlert(state) {
+  const q = state.quota;
+  const threshold = Number($('quotaAlertThreshold').value) ?? 80;
+  if (threshold === 100 || !q) return; // no alert
+  const limit = q.limit ?? 20;
+  const left = q.left ?? 0;
+  const usedPercent = Math.round(((limit - left) / limit) * 100);
+  if (usedPercent >= threshold) {
+    $('msg').textContent = `⚠️ Quota alert: ${usedPercent}% used (${limit - left}/${limit} resets)`;
+    $('msg').style.color = '#ff6b6b';
+  } else if ($('msg').textContent.startsWith('⚠️')) {
+    $('msg').textContent = '';
+    $('msg').style.color = '';
+  }
 }
 
 function render(state) {
@@ -49,8 +66,12 @@ function render(state) {
   $('portStart').value = state.portStart ?? 8801;
   $('portCount').value = state.portCount ?? 20;
   $('portEnd').textContent = `${state.portStart}+${state.portCount}`;
+  $('rotationStrategy').value = state.rotationStrategy ?? 'manual';
+  $('healthCheckInterval').value = state.healthCheckInterval ?? '60000';
+  $('quotaAlertThreshold').value = state.quotaAlertThreshold ?? '80';
   renderQuota(state);
   renderMcp(state);
+  checkQuotaAlert(state);
 
   const rows = $('rows');
   if (!state.proxies?.length) {
@@ -69,11 +90,17 @@ function render(state) {
       const rot = !canRotate || p.revoked
         ? ''
         : `<button class="copy" data-rotate="${p.itemId}" title="Get a different exit IP (uses 1 reset)">⟳</button>`;
+      // Health status
+      const health = p.health ?? {};
+      const healthStatus = health.status ?? 'unknown';
+      const healthEmoji = { healthy: '🟢', warning: '🟡', critical: '🔴', unknown: '⚪' }[healthStatus] ?? '?';
+      const healthTitle = health.latency ? ` (${health.latency}ms, ${(health.successRate ?? 0).toFixed(0)}%)` : '';
       return `<tr class="${p.revoked ? 'row-revoked' : ''}">
         <td class="muted">${i + 1}</td>
         <td class="mono">${listen}</td>
         <td>${fmtCountry(p.country)}${p.scheme === 'https' ? ' <span class="tag" title="Encrypted proxy upstream">TLS</span>' : ''}</td>
         <td class="mono">${p.exitHost ?? '?'}</td>
+        <td title="${healthTitle}">${healthEmoji}</td>
         <td class="muted">${p.active ?? 0}</td>
         <td class="num muted">${fn(p.usage?.requests)}</td>
         <td class="num muted">${fb(p.usage?.bytesUp)} / ${fb(p.usage?.bytesDown)}</td>
@@ -135,6 +162,9 @@ $('btnSave').onclick = async () => {
     portStart: Number($('portStart').value) || 8801,
     portCount: Math.min(20, Math.max(1, Number($('portCount').value) || 20)),
     mcpPort: Number($('mcpPort').value) || 6789,
+    rotationStrategy: $('rotationStrategy').value || 'manual',
+    healthCheckInterval: $('healthCheckInterval').value || '60000',
+    quotaAlertThreshold: Number($('quotaAlertThreshold').value) || 80,
   });
   if (!res.ok) $('msg').textContent = res.error;
   render(res.ok && res.state ? res.state : await window.api.state());
@@ -157,3 +187,49 @@ $('btnReload').onclick = async () => {
 
 window.api.onState(render);
 window.api.state().then(render);
+
+// Logs functionality
+const logs = [];
+const MAX_LOGS = 200;
+
+// Capture console.log
+const originalLog = console.log;
+console.log = function(...args) {
+  originalLog.apply(console, args);
+  const msg = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+  const timestamp = new Date().toLocaleTimeString('vi-VN');
+  logs.push(`[${timestamp}] ${msg}`);
+  if (logs.length > MAX_LOGS) logs.shift();
+  updateLogsDisplay();
+};
+
+function updateLogsDisplay() {
+  const content = $('logsContent');
+  if (content) content.textContent = logs.join('\n');
+  const logsPanel = $('logsPanel');
+  if (logsPanel && logsPanel.style.display !== 'none') {
+    setTimeout(() => { content.scrollTop = content.scrollHeight; }, 0);
+  }
+}
+
+$('btnShowLogs').onclick = () => {
+  const panel = $('logsPanel');
+  const isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? 'block' : 'none';
+  $('btnShowLogs').textContent = isHidden ? '📋 Logs ▲' : '📋 Logs';
+  $('btnClearLogs').style.display = isHidden ? 'none' : 'inline-block';
+  if (isHidden) {
+    setTimeout(() => {
+      const content = $('logsContent');
+      if (content) content.scrollTop = content.scrollHeight;
+    }, 50);
+  }
+};
+
+// Log app start
+console.log('AgentProxy app started');
+
+$('btnClearLogs').onclick = () => {
+  logs.length = 0;
+  updateLogsDisplay();
+};
