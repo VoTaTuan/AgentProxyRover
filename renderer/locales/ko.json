@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "AgentProxy",
+    "subtitle": "무료 · 20 프록시"
+  },
+  "header": {
+    "reload": "⟳ 새로고침",
+    "reloadHint": "백엔드에서 할당 갱신",
+    "connect": "연결",
+    "disconnect": "연결 해제"
+  },
+  "meta": {
+    "yourIp": "내 IP",
+    "quotaResets": "프록시 리셋",
+    "left": "남음",
+    "window": "시간 범위",
+    "used": "사용됨",
+    "nextFree": "다음 리셋",
+    "totalResets": "총 리셋 횟수",
+    "percent": "% 사용됨"
+  },
+  "settings": {
+    "bindIp": "바인드 IP",
+    "portRange": "포트 범위",
+    "count": "개수",
+    "mcpPort": "MCP 포트",
+    "rotationStrategy": "로테이션 전략",
+    "healthCheckInterval": "헬스 체크 간격",
+    "quotaAlertThreshold": "쿼타 알림 임계값",
+    "language": "언어",
+    "theme": "테마",
+    "save": "저장",
+    "export": "내보내기",
+    "import": "가져오기",
+    "strategies": {
+      "manual": "수동 (클릭하여 로테이션)",
+      "autoFail": "실패 시 자동",
+      "autoSlow": "지연 시 자동 (>500ms)",
+      "autoBoth": "두 조건 모두에서 자동"
+    },
+    "intervals": {
+      "perRequest": "요청마다",
+      "1min": "1분마다",
+      "5min": "5분마다",
+      "10min": "10분마다",
+      "manual": "수동만"
+    },
+    "thresholds": {
+      "50": "50%에서 경고",
+      "70": "70%에서 경고",
+      "80": "80%에서 경고",
+      "90": "90%에서 경고",
+      "100": "경고 안 함"
+    },
+    "themes": {
+      "dark": "어두운",
+      "light": "밝은"
+    }
+  },
+  "mcp": {
+    "title": "AI 에이전트용 MCP",
+    "tools": "도구",
+    "unavailable": "사용 불가",
+    "off": "꺼짐",
+    "on": "켜짐",
+    "connect": "로컬 에이전트 연결",
+    "copy": "복사"
+  },
+  "table": {
+    "index": "#",
+    "proxy": "프록시 (로컬)",
+    "country": "국가",
+    "exitIp": "종료 IP",
+    "health": "상태",
+    "active": "활성",
+    "requests": "요청",
+    "bandwidth": "↑ / ↓",
+    "stats": "성공 / 실패",
+    "actions": "작업",
+    "rotate": "다른 종료 IP 가져오기 (1회 리셋 사용)",
+    "copy": "복사",
+    "revoked": "취소됨",
+    "active_status": "활성",
+    "empty": "연결을 클릭하여 20개의 무료 프록시를 가져오세요."
+  },
+  "logs": {
+    "show": "📋 로그",
+    "clear": "🧹 지우기",
+    "title": "📋 로그"
+  },
+  "messages": {
+    "connecting": "연결 중…",
+    "disconnecting": "연결 해제 중…",
+    "refreshed": "할당이 갱신되었습니다",
+    "quotaAlert": "⚠️ 쿼타 경고: {percent}% 사용됨 ({used}/{limit} 리셋)",
+    "reloading": "로딩 중…"
+  },
+  "html": {
+    "yourIpLabel": "내 IP:",
+    "portRangeArrow": "→",
+    "mcpDescription": "로컬 에이전트 연결:",
+    "emptyTableMessage": "연결을 클릭하여 20개의 무료 프록시를 가져오세요."
+  }
+}

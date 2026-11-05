@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "AgentProxy",
+    "subtitle": "Gratuit · 20 proxies"
+  },
+  "header": {
+    "reload": "⟳ Recharger",
+    "reloadHint": "Actualiser l'allocation depuis le backend",
+    "connect": "Connecter",
+    "disconnect": "Déconnecter"
+  },
+  "meta": {
+    "yourIp": "Votre IP",
+    "quotaResets": "Réinitialisations de proxy",
+    "left": "restant",
+    "window": "fenêtre",
+    "used": "utilisé",
+    "nextFree": "prochaine réinitialisation",
+    "totalResets": "total des réinitialisations",
+    "percent": "% utilisé"
+  },
+  "settings": {
+    "bindIp": "IP de liaison",
+    "portRange": "Plage de ports",
+    "count": "Nombre",
+    "mcpPort": "Port MCP",
+    "rotationStrategy": "Stratégie de rotation",
+    "healthCheckInterval": "Intervalle de vérification de santé",
+    "quotaAlertThreshold": "Seuil d'alerte de quota",
+    "language": "Langue",
+    "theme": "Thème",
+    "save": "Enregistrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "strategies": {
+      "manual": "Manuel (cliquez pour faire pivoter)",
+      "autoFail": "Auto en cas d'échec",
+      "autoSlow": "Auto si latence élevée (>500ms)",
+      "autoBoth": "Auto dans les deux cas"
+    },
+    "intervals": {
+      "perRequest": "Par demande",
+      "1min": "Toutes les 1 minute",
+      "5min": "Toutes les 5 minutes",
+      "10min": "Toutes les 10 minutes",
+      "manual": "Manuel uniquement"
+    },
+    "thresholds": {
+      "50": "Alerte à 50% d'utilisation",
+      "70": "Alerte à 70% d'utilisation",
+      "80": "Alerte à 80% d'utilisation",
+      "90": "Alerte à 90% d'utilisation",
+      "100": "Pas d'alerte"
+    },
+    "themes": {
+      "dark": "Sombre",
+      "light": "Clair"
+    }
+  },
+  "mcp": {
+    "title": "MCP pour agents IA",
+    "tools": "outils",
+    "unavailable": "indisponible",
+    "off": "éteint",
+    "on": "activé",
+    "connect": "Connecter agent local",
+    "copy": "copier"
+  },
+  "table": {
+    "index": "#",
+    "proxy": "Proxy (local)",
+    "country": "Pays",
+    "exitIp": "IP de sortie",
+    "health": "Santé",
+    "active": "Actif",
+    "requests": "Demandes",
+    "bandwidth": "↑ / ↓",
+    "stats": "Succès / Échec",
+    "actions": "Actions",
+    "rotate": "Obtenir une IP de sortie différente (utilise 1 réinitialisation)",
+    "copy": "copier",
+    "revoked": "Révoqué",
+    "active_status": "Actif",
+    "empty": "Cliquez sur Connecter pour récupérer vos 20 proxies gratuits."
+  },
+  "logs": {
+    "show": "📋 Journaux",
+    "clear": "🧹 Effacer",
+    "title": "📋 Journaux"
+  },
+  "messages": {
+    "connecting": "Connexion…",
+    "disconnecting": "Déconnexion…",
+    "refreshed": "Allocation actualisée",
+    "quotaAlert": "⚠️ Alerte de quota : {percent}% utilisé ({used}/{limit} réinitialisations)",
+    "reloading": "Rechargement…"
+  },
+  "html": {
+    "yourIpLabel": "Votre IP:",
+    "portRangeArrow": "→",
+    "mcpDescription": "Connecter agent local:",
+    "emptyTableMessage": "Cliquez sur Connecter pour récupérer vos 20 proxies gratuits."
+  }
+}

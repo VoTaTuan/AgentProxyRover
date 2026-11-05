@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "AgentProxy",
+    "subtitle": "Gratis · 20 proxies"
+  },
+  "header": {
+    "reload": "⟳ Recargar",
+    "reloadHint": "Actualizar asignación desde el backend",
+    "connect": "Conectar",
+    "disconnect": "Desconectar"
+  },
+  "meta": {
+    "yourIp": "Tu IP",
+    "quotaResets": "Reinicio de proxies",
+    "left": "restante",
+    "window": "ventana",
+    "used": "utilizado",
+    "nextFree": "próximo reinicio",
+    "totalResets": "total de reinicio",
+    "percent": "% utilizado"
+  },
+  "settings": {
+    "bindIp": "IP de enlace",
+    "portRange": "Rango de puertos",
+    "count": "Cantidad",
+    "mcpPort": "Puerto MCP",
+    "rotationStrategy": "Estrategia de rotación",
+    "healthCheckInterval": "Intervalo de verificación de salud",
+    "quotaAlertThreshold": "Umbral de alerta de cuota",
+    "language": "Idioma",
+    "theme": "Tema",
+    "save": "Guardar",
+    "export": "Exportar",
+    "import": "Importar",
+    "strategies": {
+      "manual": "Manual (haz clic para rotar)",
+      "autoFail": "Auto en fallos",
+      "autoSlow": "Auto en latencia alta (>500ms)",
+      "autoBoth": "Auto en ambas condiciones"
+    },
+    "intervals": {
+      "perRequest": "Por solicitud",
+      "1min": "Cada 1 minuto",
+      "5min": "Cada 5 minutos",
+      "10min": "Cada 10 minutos",
+      "manual": "Solo manual"
+    },
+    "thresholds": {
+      "50": "Alerta al 50% utilizado",
+      "70": "Alerta al 70% utilizado",
+      "80": "Alerta al 80% utilizado",
+      "90": "Alerta al 90% utilizado",
+      "100": "Sin alerta"
+    },
+    "themes": {
+      "dark": "Oscuro",
+      "light": "Claro"
+    }
+  },
+  "mcp": {
+    "title": "MCP para agentes de IA",
+    "tools": "herramientas",
+    "unavailable": "no disponible",
+    "off": "apagado",
+    "on": "encendido",
+    "connect": "Conectar agente local",
+    "copy": "copiar"
+  },
+  "table": {
+    "index": "#",
+    "proxy": "Proxy (local)",
+    "country": "País",
+    "exitIp": "IP de salida",
+    "health": "Salud",
+    "active": "Activo",
+    "requests": "Solicitudes",
+    "bandwidth": "↑ / ↓",
+    "stats": "Éxito / Fallo",
+    "actions": "Acciones",
+    "rotate": "Obtener una IP de salida diferente (usa 1 reinicio)",
+    "copy": "copiar",
+    "revoked": "Revocado",
+    "active_status": "Activo",
+    "empty": "Haz clic en Conectar para obtener 20 proxies gratuitos."
+  },
+  "logs": {
+    "show": "📋 Registros",
+    "clear": "🧹 Limpiar",
+    "title": "📋 Registros"
+  },
+  "messages": {
+    "connecting": "Conectando…",
+    "disconnecting": "Desconectando…",
+    "refreshed": "Asignación actualizada",
+    "quotaAlert": "⚠️ Alerta de cuota: {percent}% utilizado ({used}/{limit} reinicios)",
+    "reloading": "Recargando…"
+  },
+  "html": {
+    "yourIpLabel": "Tu IP:",
+    "portRangeArrow": "→",
+    "mcpDescription": "Conectar agente local:",
+    "emptyTableMessage": "Haz clic en Conectar para obtener 20 proxies gratuitos."
+  }
+}
