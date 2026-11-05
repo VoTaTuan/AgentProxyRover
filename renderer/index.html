@@ -22,10 +22,14 @@
   <div class="wrapper">
     <!-- LEFT SIDEBAR: Settings & Info -->
     <div class="sidebar">
-      <section class="meta" style="flex-direction: column; border: none; padding: 12px 18px; gap: 8px;">
-        <div>Your IP: <b id="publicIp">–</b></div>
-        <div id="quotaLine" class="quota"></div>
-        <div id="msg" class="msg"></div>
+      <section class="meta" style="flex-direction: row; border: none; padding: 10px 18px; gap: 12px; justify-content: space-between; align-items: center; font-size: 12px;">
+        <div style="display: flex; align-items: center; gap: 6px; min-width: 0; flex: 1;">
+          <span style="color: var(--muted); white-space: nowrap;">IP:</span>
+          <code style="background: var(--bg); padding: 2px 6px; border-radius: 3px; font-size: 11px; overflow: hidden; text-overflow: ellipsis; flex: 1; cursor: pointer;" title="Click to copy" id="publicIp">–</code>
+        </div>
+        <div id="quotaLine" class="quota" style="white-space: nowrap; font-size: 11px;"></div>
+        <button id="btnResetIp" style="padding: 4px 8px; background: #3fb27f; color: #06130c; border: none; border-radius: 3px; cursor: pointer; font-weight: 600; font-size: 11px; white-space: nowrap;" title="Reset IP allocation">Reset</button>
+        <div id="msg" class="msg" style="display: none; position: absolute; bottom: 10px; right: 18px; font-size: 11px;"></div>
       </section>
 
       <section class="settings">

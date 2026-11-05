@@ -126,14 +126,8 @@ function renderQuota(state) {
   if (!q) { el.textContent = ''; return; }
   const left = q.left ?? 0;
   const limit = q.limit ?? 20;
-  const mins = Math.round((q.windowMs ?? 1200000) / 60000);
-  const next = q.nextResetAt
-    ? ` · ${i18n.t('meta.nextFree')} ${new Date(q.nextResetAt).toLocaleTimeString('vi-VN')}`
-    : '';
   const usedPercent = Math.round(((limit - left) / limit) * 100);
-  el.innerHTML =
-    `${i18n.t('meta.quotaResets')}: <b>${left}/${limit}</b> ${i18n.t('meta.left')} (${usedPercent}${i18n.t('meta.percent')}, ${i18n.t('meta.window')} ${mins} min, ` +
-    `${i18n.t('meta.used')} ${q.used ?? 0}${next}) — ${i18n.t('meta.totalResets')}: <b>${q.totalResets ?? 0}</b>`;
+  el.innerHTML = `<b>${left}/${limit}</b> (${usedPercent}%)`;
 }
 
 function checkQuotaAlert(state) {
