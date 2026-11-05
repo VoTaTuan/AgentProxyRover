@@ -16,7 +16,8 @@
     "window": "window",
     "used": "used",
     "nextFree": "next free",
-    "totalResets": "total lifetime resets"
+    "totalResets": "total lifetime resets",
+    "percent": "% used"
   },
   "settings": {
     "bindIp": "Bind IP",
@@ -84,6 +85,13 @@
     "connecting": "Connecting…",
     "disconnecting": "Disconnecting…",
     "refreshed": "Allocation refreshed",
-    "quotaAlert": "⚠️ Quota alert: {percent}% used ({used}/{limit} resets)"
+    "quotaAlert": "⚠️ Quota alert: {percent}% used ({used}/{limit} resets)",
+    "reloading": "Reloading…"
+  },
+  "html": {
+    "yourIpLabel": "Your IP:",
+    "portRangeArrow": "→",
+    "mcpDescription": "Connect a local agent:",
+    "emptyTableMessage": "Press Connect to fetch your 20 free proxies."
   }
 }

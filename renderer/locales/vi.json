@@ -16,7 +16,8 @@
     "window": "cửa sổ",
     "used": "đã dùng",
     "nextFree": "reset tiếp theo lúc",
-    "totalResets": "tổng reset suốt đời"
+    "totalResets": "tổng reset suốt đời",
+    "percent": "% dùng"
   },
   "settings": {
     "bindIp": "Bind IP",
@@ -84,6 +85,13 @@
     "connecting": "Đang kết nối…",
     "disconnecting": "Đang ngắt kết nối…",
     "refreshed": "Đã cập nhật allocation",
-    "quotaAlert": "⚠️ Cảnh báo Quota: {percent}% dùng ({used}/{limit} reset)"
+    "quotaAlert": "⚠️ Cảnh báo Quota: {percent}% dùng ({used}/{limit} reset)",
+    "reloading": "Đang tải lại…"
+  },
+  "html": {
+    "yourIpLabel": "IP của bạn:",
+    "portRangeArrow": "→",
+    "mcpDescription": "Kết nối agent cục bộ:",
+    "emptyTableMessage": "Bấm Kết nối để lấy 20 proxy miễn phí."
   }
 }

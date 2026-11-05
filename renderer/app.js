@@ -14,48 +14,67 @@ async function initI18n() {
   const saved = localStorage.getItem('agentproxy-lang') || 'en';
   await i18n.load(saved);
   $('languageSelect').value = i18n.getLocale();
-  translate();
+  if (saved !== 'en') translate();
 }
 
 function translate() {
-  $('planBadge').textContent = i18n.t('app.subtitle');
-  $('btnReload').textContent = i18n.t('header.reload');
-  $('btnReload').title = i18n.t('header.reloadHint');
+  if (i18n.getLocale() === 'en') return;
 
-  const rotOpts = $('rotationStrategy')?.querySelectorAll('option');
-  if (rotOpts) {
-    rotOpts[0].textContent = i18n.t('settings.strategies.manual');
-    rotOpts[1].textContent = i18n.t('settings.strategies.autoFail');
-    rotOpts[2].textContent = i18n.t('settings.strategies.autoSlow');
-    rotOpts[3].textContent = i18n.t('settings.strategies.autoBoth');
-  }
+  const t = (k) => i18n.t(k);
 
-  const healthOpts = $('healthCheckInterval')?.querySelectorAll('option');
-  if (healthOpts) {
-    healthOpts[0].textContent = i18n.t('settings.intervals.perRequest');
-    healthOpts[1].textContent = i18n.t('settings.intervals.1min');
-    healthOpts[2].textContent = i18n.t('settings.intervals.5min');
-    healthOpts[3].textContent = i18n.t('settings.intervals.10min');
-    healthOpts[4].textContent = i18n.t('settings.intervals.manual');
-  }
+  // Header & badges
+  $('planBadge').textContent = t('app.subtitle');
+  $('btnReload').textContent = t('header.reload');
+  $('btnReload').title = t('header.reloadHint');
+  $('btnToggle').textContent = $('btnToggle').textContent.includes('Connect') ? t('header.connect') : t('header.disconnect');
 
-  const quotaOpts = $('quotaAlertThreshold')?.querySelectorAll('option');
-  if (quotaOpts) {
-    quotaOpts[0].textContent = i18n.t('settings.thresholds.50');
-    quotaOpts[1].textContent = i18n.t('settings.thresholds.70');
-    quotaOpts[2].textContent = i18n.t('settings.thresholds.80');
-    quotaOpts[3].textContent = i18n.t('settings.thresholds.90');
-    quotaOpts[4].textContent = i18n.t('settings.thresholds.100');
-  }
+  // Settings labels - update just the text before input/select
+  const labels = document.querySelectorAll('.settings label');
+  const labelKeys = [
+    'settings.bindIp', 'settings.portRange', 'settings.count', 'settings.mcpPort',
+    'settings.rotationStrategy', 'settings.healthCheckInterval', 'settings.quotaAlertThreshold', 'settings.language'
+  ];
+  labels.forEach((label, i) => {
+    const child = label.querySelector('input, select, .row');
+    if (child && labelKeys[i]) {
+      const newText = t(labelKeys[i]) + ' ';
+      label.textContent = newText;
+      label.appendChild(child);
+    }
+  });
 
-  $('btnSave').textContent = i18n.t('settings.save');
-  $('btnShowLogs').textContent = i18n.t('logs.show');
-  $('btnClearLogs').textContent = i18n.t('logs.clear');
+  // Dropdown options
+  [$('rotationStrategy'), 'settings.strategies.manual', 'settings.strategies.autoFail', 'settings.strategies.autoSlow', 'settings.strategies.autoBoth']
+    .slice(1).forEach((k, i) => {
+      const opt = $('rotationStrategy')?.querySelector(`option:nth-child(${i+1})`);
+      if (opt) opt.textContent = t(k);
+    });
 
-  const headers = $('proxyTable')?.querySelectorAll('thead th');
-  if (headers && headers.length >= 10) {
-    headers[9].textContent = i18n.t('table.actions');
-  }
+  [$('healthCheckInterval'), 'settings.intervals.perRequest', 'settings.intervals.1min', 'settings.intervals.5min', 'settings.intervals.10min', 'settings.intervals.manual']
+    .slice(1).forEach((k, i) => {
+      const opt = $('healthCheckInterval')?.querySelector(`option:nth-child(${i+1})`);
+      if (opt) opt.textContent = t(k);
+    });
+
+  [$('quotaAlertThreshold'), 'settings.thresholds.50', 'settings.thresholds.70', 'settings.thresholds.80', 'settings.thresholds.90', 'settings.thresholds.100']
+    .slice(1).forEach((k, i) => {
+      const opt = $('quotaAlertThreshold')?.querySelector(`option:nth-child(${i+1})`);
+      if (opt) opt.textContent = t(k);
+    });
+
+  // Buttons
+  $('btnSave').textContent = t('settings.save');
+  $('btnShowLogs').textContent = t('logs.show');
+  $('btnClearLogs').textContent = t('logs.clear');
+
+  // MCP section
+  const mcpTitle = document.querySelector('.settings.mcp b');
+  if (mcpTitle) mcpTitle.textContent = t('mcp.title');
+
+  // Table headers
+  const headers = Array.from($('proxyTable')?.querySelectorAll('thead th') || []);
+  const headerKeys = ['table.index', 'table.proxy', 'table.country', 'table.exitIp', 'table.health', 'table.active', 'table.requests', 'table.bandwidth', 'table.stats', 'table.actions'];
+  headers.forEach((h, i) => h.textContent = t(headerKeys[i] || ''));
 }
 
 function renderMcp(state) {
@@ -81,12 +100,12 @@ function renderQuota(state) {
   const limit = q.limit ?? 20;
   const mins = Math.round((q.windowMs ?? 1200000) / 60000);
   const next = q.nextResetAt
-    ? ` · next free ${new Date(q.nextResetAt).toLocaleTimeString('vi-VN')}`
+    ? ` · ${i18n.t('meta.nextFree')} ${new Date(q.nextResetAt).toLocaleTimeString('vi-VN')}`
     : '';
   const usedPercent = Math.round(((limit - left) / limit) * 100);
   el.innerHTML =
-    `Proxy resets: <b>${left}/${limit}</b> left (${usedPercent}% used, window ${mins} min, ` +
-    `used ${q.used ?? 0}${next}) — total lifetime resets: <b>${q.totalResets ?? 0}</b>`;
+    `${i18n.t('meta.quotaResets')}: <b>${left}/${limit}</b> ${i18n.t('meta.left')} (${usedPercent}${i18n.t('meta.percent')}, ${i18n.t('meta.window')} ${mins} min, ` +
+    `${i18n.t('meta.used')} ${q.used ?? 0}${next}) — ${i18n.t('meta.totalResets')}: <b>${q.totalResets ?? 0}</b>`;
 }
 
 function checkQuotaAlert(state) {
@@ -97,7 +116,11 @@ function checkQuotaAlert(state) {
   const left = q.left ?? 0;
   const usedPercent = Math.round(((limit - left) / limit) * 100);
   if (usedPercent >= threshold) {
-    $('msg').textContent = `⚠️ Quota alert: ${usedPercent}% used (${limit - left}/${limit} resets)`;
+    const msg = i18n.t('messages.quotaAlert')
+      .replace('{percent}', usedPercent)
+      .replace('{used}', limit - left)
+      .replace('{limit}', limit);
+    $('msg').textContent = msg;
     $('msg').style.color = '#ff6b6b';
   } else if ($('msg').textContent.startsWith('⚠️')) {
     $('msg').textContent = '';
@@ -190,7 +213,7 @@ $('btnToggle').onclick = async () => {
   const btn = $('btnToggle');
   if (btn.disabled) return; // ignore double-clicks while busy
   const cur = await window.api.state();
-  const busyLabel = cur.running ? 'Disconnecting…' : 'Connecting…';
+  const busyLabel = cur.running ? i18n.t('messages.disconnecting') : i18n.t('messages.connecting');
   btn.disabled = true;
   btn.classList.add('loading');
   btn.innerHTML = `<span class="spinner"></span>${busyLabel}`;
@@ -222,14 +245,14 @@ $('btnReload').onclick = async () => {
   const btn = $('btnReload');
   if (btn.disabled) return;
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Reloading…';
+  btn.innerHTML = `<span class="spinner"></span>${i18n.t('messages.reloading')}`;
   try {
     const res = await window.api.reload();
-    $('msg').textContent = res.ok ? 'Allocation refreshed' : res.error;
+    $('msg').textContent = res.ok ? i18n.t('messages.refreshed') : res.error;
     render(res.ok && res.state ? res.state : await window.api.state());
   } finally {
     btn.disabled = false;
-    btn.textContent = '⟳ Reload';
+    btn.textContent = i18n.t('header.reload');
   }
 };
 
