@@ -83,6 +83,22 @@ function translate() {
   const mcpTitle = document.querySelector('.settings.mcp b');
   if (mcpTitle) mcpTitle.textContent = t('mcp.title');
 
+  // Reload dropdown
+  const reloadOpts = $('reloadMode')?.querySelectorAll('option');
+  if (reloadOpts) {
+    reloadOpts[0].textContent = t('reload.soft');
+    reloadOpts[1].textContent = t('reload.full');
+    reloadOpts[2].textContent = t('reload.hot');
+  }
+
+  // Reload button & label
+  const reloadLabel = document.querySelector('label:has(#reloadMode)');
+  if (reloadLabel) {
+    const labelText = reloadLabel.childNodes[0];
+    if (labelText) labelText.textContent = t('reload.label');
+  }
+  $('btnReloadApp').textContent = t('reload.button');
+
   // Table headers
   const headers = Array.from($('proxyTable')?.querySelectorAll('thead th') || []);
   const headerKeys = ['table.index', 'table.proxy', 'table.country', 'table.exitIp', 'table.health', 'table.active', 'table.requests', 'table.bandwidth', 'table.stats', 'table.actions'];
@@ -210,6 +226,41 @@ function showToast(message, duration = 3000) {
   toast.textContent = message;
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), duration);
+}
+
+async function reloadApp(mode) {
+  const reloadMode = mode || $('reloadMode').value || 'soft';
+
+  switch (reloadMode) {
+    case 'soft':
+      showToast(i18n.t('reload.softMsg'));
+      setTimeout(() => location.reload(), 300);
+      break;
+
+    case 'full':
+      showToast(i18n.t('reload.fullMsg'));
+      setTimeout(async () => {
+        if (window.api.relaunch) {
+          await window.api.relaunch();
+        } else {
+          location.reload();
+        }
+      }, 500);
+      break;
+
+    case 'hot':
+      try {
+        if (window.api.enableHotReload) {
+          await window.api.enableHotReload();
+          showToast(i18n.t('reload.hotMsg'));
+        } else {
+          showToast(i18n.t('reload.hotNotSupported'));
+        }
+      } catch (e) {
+        showToast(i18n.t('reload.hotNotSupported'));
+      }
+      break;
+  }
 }
 
 function updateBatchUI() {
@@ -448,6 +499,29 @@ function updateLogsDisplay() {
     setTimeout(() => { content.scrollTop = content.scrollHeight; }, 0);
   }
 }
+
+$('btnReloadApp').onclick = () => reloadApp();
+
+$('reloadMode').onchange = () => {
+  // Optional: auto-reload on dropdown change (disabled by default)
+  // reloadApp();
+};
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && !e.shiftKey && !e.altKey && e.key === 'r') {
+    e.preventDefault();
+    reloadApp('soft');
+  }
+  if (e.ctrlKey && e.shiftKey && !e.altKey && e.key === 'r') {
+    e.preventDefault();
+    reloadApp('full');
+  }
+  if (e.ctrlKey && e.altKey && !e.shiftKey && e.key === 'r') {
+    e.preventDefault();
+    reloadApp('hot');
+  }
+});
 
 $('btnShowLogs').onclick = () => {
   const panel = $('logsPanel');

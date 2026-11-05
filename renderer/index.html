@@ -99,7 +99,16 @@
   </section>
 
   <main>
-    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+    <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+      <label style="display: flex; align-items: center; gap: 6px; color: #8b98a5; font-size: 12px; margin: 0;">
+        Reload:
+        <select id="reloadMode" style="padding: 4px 8px; background: #171d24; color: #e6edf3; border: 1px solid #232c36; border-radius: 4px; cursor: pointer; font-size: 12px;">
+          <option value="soft">Soft (UI only)</option>
+          <option value="full">Full (Restart app)</option>
+          <option value="hot">Hot Module (Dev)</option>
+        </select>
+      </label>
+      <button id="btnReloadApp" style="padding: 6px 12px; background: #3fb27f; color: #06130c; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px;">🔄 Reload</button>
       <button id="btnShowLogs" style="padding: 8px 16px; background: #4a5568; color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Logs</button>
       <button id="btnClearLogs" style="padding: 8px 16px; background: #c53030; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">🧹 Clear</button>
     </div>

@@ -128,6 +128,32 @@ app.whenReady().then(async () => {
     }
   });
 
+  ipcMain.handle('relaunch', async () => {
+    try {
+      app.relaunch();
+      app.quit();
+      return { ok: true };
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  });
+
+  ipcMain.handle('enable-hot-reload', async () => {
+    try {
+      // Try to require electron-reload if available
+      try {
+        require('electron-reload')(__dirname, { electron: require('electron') });
+        console.log('[hot-reload] electron-reload enabled');
+        return { ok: true };
+      } catch (_) {
+        // electron-reload not installed, hot reload not supported
+        return { ok: false, error: 'electron-reload not installed' };
+      }
+    } catch (e) {
+      return { ok: false, error: e.message };
+    }
+  });
+
   await startMcp();
   createWindow();
   app.on('activate', () => {

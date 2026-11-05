@@ -9,5 +9,7 @@ contextBridge.exposeInMainWorld('api', {
   rotate: (itemId) => ipcRenderer.invoke('rotate', itemId),
   reload: () => ipcRenderer.invoke('reload'),
   saveSettings: (patch) => ipcRenderer.invoke('save-settings', patch),
+  relaunch: () => ipcRenderer.invoke('relaunch'),
+  enableHotReload: () => ipcRenderer.invoke('enable-hot-reload'),
   onState: (cb) => ipcRenderer.on('state', (_e, state) => cb(state)),
 });

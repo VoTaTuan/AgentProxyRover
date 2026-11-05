@@ -88,6 +88,17 @@
     "clear": "🧹 Clear",
     "title": "📋 Logs"
   },
+  "reload": {
+    "label": "Reload:",
+    "soft": "Soft (UI only)",
+    "full": "Full (Restart app)",
+    "hot": "Hot Module (Dev)",
+    "button": "🔄 Reload",
+    "softMsg": "✓ UI reloaded (proxy still running)",
+    "fullMsg": "Restarting app...",
+    "hotMsg": "Hot reload enabled",
+    "hotNotSupported": "Hot reload not supported in this build"
+  },
   "messages": {
     "connecting": "Connecting…",
     "disconnecting": "Disconnecting…",

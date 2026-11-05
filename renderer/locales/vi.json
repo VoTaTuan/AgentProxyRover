@@ -88,6 +88,17 @@
     "clear": "🧹 Xóa",
     "title": "📋 Nhật ký"
   },
+  "reload": {
+    "label": "Tải lại:",
+    "soft": "Nhẹ (chỉ UI)",
+    "full": "Toàn bộ (Khởi động lại app)",
+    "hot": "Hot Module (Dev)",
+    "button": "🔄 Tải lại",
+    "softMsg": "✓ UI đã tải lại (proxy vẫn chạy)",
+    "fullMsg": "Đang khởi động lại app...",
+    "hotMsg": "Hot reload kích hoạt",
+    "hotNotSupported": "Hot reload không được hỗ trợ trong build này"
+  },
   "messages": {
     "connecting": "Đang kết nối…",
     "disconnecting": "Đang ngắt kết nối…",
