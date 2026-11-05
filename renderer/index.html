@@ -19,13 +19,16 @@
     </div>
   </header>
 
-  <section class="meta">
-    <div>Your IP: <b id="publicIp">–</b></div>
-    <div id="quotaLine" class="quota"></div>
-    <div id="msg" class="msg"></div>
-  </section>
+  <div class="wrapper">
+    <!-- LEFT SIDEBAR: Settings & Info -->
+    <div class="sidebar">
+      <section class="meta" style="flex-direction: column; border: none; padding: 12px 18px; gap: 8px;">
+        <div>Your IP: <b id="publicIp">–</b></div>
+        <div id="quotaLine" class="quota"></div>
+        <div id="msg" class="msg"></div>
+      </section>
 
-  <section class="settings">
+      <section class="settings">
     <!-- Connection Settings -->
     <div class="settings-section">
       <div class="settings-section-title">🔗 Connection</div>
@@ -102,26 +105,27 @@
       <button id="btnImportSettings" class="secondary" title="Import settings from JSON file (restore backup)">⬆ Import</button>
       <input type="file" id="importFile" style="display: none;" accept=".json" />
     </div>
-  </section>
+      </section>
 
-  <section style="padding: 12px 18px; background: var(--panel); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto;">
-    <div>
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; font-weight: 600;">
-        <span class="dot" id="mcpDot"></span>
-        <span>🤖 MCP for AI Agents</span>
-        <span id="mcpTools" class="muted" style="font-size: 12px; font-weight: normal;">–</span>
-      </div>
-      <div style="font-size: 11px; color: var(--muted); margin-bottom: 6px;">Endpoint:</div>
-      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-        <code class="mono" id="mcpUrl" style="flex: 1;">–</code>
-        <button class="copy" id="btnCopyMcp" title="Copy MCP endpoint">copy</button>
-      </div>
-      <div style="font-size: 11px; color: var(--muted); margin-bottom: 6px;">Command:</div>
-      <code class="mono" id="mcpCmd" style="display: block; word-break: break-all; font-size: 11px;">–</code>
+      <!-- MCP Section in Sidebar -->
+      <section style="padding: 12px 18px; background: var(--panel); border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; font-weight: 600;">
+          <span class="dot" id="mcpDot"></span>
+          <span>🤖 MCP</span>
+          <span id="mcpTools" class="muted" style="font-size: 11px; font-weight: normal;">–</span>
+        </div>
+        <div style="font-size: 10px; color: var(--muted); margin-bottom: 4px;">Endpoint:</div>
+        <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 8px;">
+          <code class="mono" id="mcpUrl" style="flex: 1; font-size: 10px; overflow: hidden; text-overflow: ellipsis;">–</code>
+          <button class="copy" id="btnCopyMcp" style="padding: 2px 6px; font-size: 10px;" title="Copy MCP endpoint">copy</button>
+        </div>
+        <div style="font-size: 10px; color: var(--muted); margin-bottom: 4px;">Command:</div>
+        <code class="mono" id="mcpCmd" style="display: block; word-break: break-all; font-size: 9px;">–</code>
+      </section>
     </div>
-  </section>
 
-  <main>
+    <!-- RIGHT MAIN: Proxy Table & Logs -->
+    <main>
     <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
       <label style="display: flex; align-items: center; gap: 6px; color: #8b98a5; font-size: 12px; margin: 0;" title="Reload mode: Soft (UI only, Ctrl+R) | Full (restart, Ctrl+Shift+R) | Hot (dev, Ctrl+Alt+R)">
         Reload:
@@ -155,6 +159,7 @@
       <div id="logsContent" style="background: #0a0a0a; color: #0f0; padding: 12px; height: 100%; overflow-y: auto; font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-word; line-height: 1.5;"></div>
     </div>
   </main>
+  </div>
 
   <script src="i18n.js"></script>
   <script src="app.js"></script>
