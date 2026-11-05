@@ -13,6 +13,27 @@
       <span class="dot" id="statusDot"></span>
       <span class="badge" id="planBadge">FREE · 20 proxies</span>
     </div>
+    <div class="head-prefs" style="display: flex; gap: 12px; align-items: center;">
+      <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin: 0;">
+        <span>🌐</span>
+        <select id="languageSelect" style="background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; font-size: 11px; cursor: pointer;">
+          <option value="en">EN</option>
+          <option value="vi">VN</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本</option>
+          <option value="ko">한국</option>
+          <option value="es">ES</option>
+          <option value="fr">FR</option>
+        </select>
+      </label>
+      <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin: 0;">
+        <span>🎨</span>
+        <select id="themeSelect" style="background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; font-size: 11px; cursor: pointer;">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </label>
+    </div>
     <div class="head-actions">
       <button id="btnReload" class="secondary" title="Refresh allocation from backend">⟳ Reload</button>
       <button id="btnToggle" class="primary">Connect</button>
@@ -75,28 +96,6 @@
           <option value="80">Alert at 80% used</option>
           <option value="90">Alert at 90% used</option>
           <option value="100">Never alert</option>
-        </select>
-      </label>
-    </div>
-
-    <!-- App Preferences -->
-    <div class="settings-section">
-      <div class="settings-section-title">🎨 Preferences</div>
-      <label>Language
-        <select id="languageSelect">
-          <option value="en">English</option>
-          <option value="vi">Tiếng Việt</option>
-          <option value="zh">中文 (简体)</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-        </select>
-      </label>
-      <label>Theme
-        <select id="themeSelect">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
         </select>
       </label>
     </div>
