@@ -392,6 +392,34 @@ $('btnBatchCopy').onclick = () => {
   setTimeout(() => btn.textContent = original, 1500);
 };
 
+// Sidebar tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.onclick = () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    $(`${tab}-tab`).classList.add('active');
+    localStorage.setItem('agentproxy-active-tab', tab);
+  };
+});
+
+// Sidebar toggle
+const sidebar = document.querySelector('.sidebar');
+$('btnToggleSidebar').onclick = () => {
+  sidebar.classList.toggle('hidden');
+  localStorage.setItem('agentproxy-sidebar-hidden', sidebar.classList.contains('hidden'));
+};
+
+// Restore sidebar state
+if (localStorage.getItem('agentproxy-sidebar-hidden') === 'true') {
+  sidebar.classList.add('hidden');
+}
+
+// Restore active tab
+const activeTab = localStorage.getItem('agentproxy-active-tab') || 'dashboard';
+document.querySelector(`[data-tab="${activeTab}"]`)?.click();
+
 $('btnExportSettings').onclick = async () => {
   const state = await window.api.state();
   const settings = {

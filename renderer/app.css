@@ -51,14 +51,70 @@ header {
   grid-template-columns: 340px 1fr;
   gap: 0;
   overflow: hidden;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.wrapper:has(.sidebar.hidden) {
+  grid-template-columns: 0px 1fr;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   border-right: 1px solid var(--line);
   background: var(--bg);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.hidden {
+  margin-left: -340px;
+  width: 0;
+}
+
+.sidebar-tabs {
+  display: flex;
+  gap: 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--bg);
+  color: var(--muted);
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: flex;
 }
 
 main {
