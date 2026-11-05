@@ -172,8 +172,30 @@ button.primary.stop .spinner { border-color: rgba(255, 255, 255, 0.35); border-t
 }
 .settings button:hover { opacity: 0.9; }
 .settings button.secondary { background: var(--line); color: var(--text); }
-main { padding: 0 18px 18px; }
-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  flex-wrap: wrap;
+}
+
+.main-content-area {
+  flex: 1;
+  overflow: auto;
+  padding: 12px 18px;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 0; }
 th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
 th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }

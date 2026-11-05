@@ -270,7 +270,7 @@ function updateBatchUI() {
 
   $('selectAllHeader').checked = isAllChecked;
   $('selectAllProxies').checked = isAllChecked;
-  $('selectedCount').textContent = `${checked} selected`;
+  $('selectedCount').textContent = checked > 0 ? checked : '';
 
   const show = checked > 0;
   $('btnBatchRotate').style.display = show ? 'inline-block' : 'none';
