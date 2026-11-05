@@ -159,7 +159,7 @@ function render(state) {
   const rows = $('rows');
   if (!state.proxies?.length) {
     rows.innerHTML =
-      '<tr><td colspan="10" class="empty">Press <b>Connect</b> to fetch your 20 free proxies.</td></tr>';
+      '<tr><td colspan="11" class="empty">Press <b>Connect</b> to fetch your 20 free proxies.</td></tr>';
     return;
   }
   const q = state.quota;
@@ -179,6 +179,7 @@ function render(state) {
       const healthEmoji = { healthy: '🟢', warning: '🟡', critical: '🔴', unknown: '⚪' }[healthStatus] ?? '?';
       const healthTitle = health.latency ? ` (${health.latency}ms, ${(health.successRate ?? 0).toFixed(0)}%)` : '';
       return `<tr class="${p.revoked ? 'row-revoked' : ''}">
+        <td style="width: 30px;"><input type="checkbox" class="proxy-checkbox" data-item-id="${p.itemId}" /></td>
         <td class="muted">${i + 1}</td>
         <td class="mono">${listen}</td>
         <td>${fmtCountry(p.country)}${p.scheme === 'https' ? ' <span class="tag" title="Encrypted proxy upstream">TLS</span>' : ''}</td>
@@ -202,6 +203,31 @@ const fmtCountry = (c) => {
   const cap = (s) => s.replace(/(^|\s|-)\w/g, (ch) => ch.toUpperCase());
   return city.length ? `${cap(country)} · ${cap(city.join('-'))}` : cap(country);
 };
+
+function updateBatchUI() {
+  const checked = document.querySelectorAll('.proxy-checkbox:checked').length;
+  const allCheckboxes = document.querySelectorAll('.proxy-checkbox');
+  const isAllChecked = allCheckboxes.length > 0 && checked === allCheckboxes.length;
+
+  $('selectAllHeader').checked = isAllChecked;
+  $('selectAllProxies').checked = isAllChecked;
+  $('selectedCount').textContent = `${checked} selected`;
+
+  const show = checked > 0;
+  $('btnBatchRotate').style.display = show ? 'inline-block' : 'none';
+  $('btnBatchCopy').style.display = show ? 'inline-block' : 'none';
+}
+
+document.addEventListener('change', (e) => {
+  if (e.target.id === 'selectAllHeader' || e.target.id === 'selectAllProxies') {
+    document.querySelectorAll('.proxy-checkbox').forEach(cb => cb.checked = e.target.checked);
+    updateBatchUI();
+    return;
+  }
+  if (e.target.classList.contains('proxy-checkbox')) {
+    updateBatchUI();
+  }
+});
 
 document.addEventListener('click', (e) => {
   // Nút ⟳ phải check TRƯỚC nút copy — nó dùng chung class "copy" để có style,
@@ -278,6 +304,39 @@ $('themeSelect').onchange = (e) => {
   const theme = e.target.value;
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('agentproxy-theme', theme);
+};
+
+$('btnBatchRotate').onclick = async () => {
+  const checked = Array.from(document.querySelectorAll('.proxy-checkbox:checked')).map(cb => cb.dataset.itemId);
+  if (!checked.length) return;
+
+  const btn = $('btnBatchRotate');
+  btn.disabled = true;
+  btn.textContent = '⟳ Rotating...';
+
+  for (const itemId of checked) {
+    await window.api.rotate(itemId).catch(e => console.error('Rotate failed:', e));
+    await new Promise(r => setTimeout(r, 200)); // small delay between rotations
+  }
+
+  btn.disabled = false;
+  btn.textContent = '⟳ Rotate Selected';
+  render(await window.api.state());
+};
+
+$('btnBatchCopy').onclick = () => {
+  const checked = Array.from(document.querySelectorAll('.proxy-checkbox:checked'));
+  const proxies = checked.map(cb => {
+    const row = cb.closest('tr');
+    const proxyCell = row.cells[2]; // proxy cell
+    return proxyCell.textContent.trim();
+  });
+
+  navigator.clipboard.writeText(proxies.join('\n'));
+  const btn = $('btnBatchCopy');
+  const original = btn.textContent;
+  btn.textContent = '✓ Copied!';
+  setTimeout(() => btn.textContent = original, 1500);
 };
 
 window.api.onState(render);
