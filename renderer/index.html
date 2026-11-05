@@ -26,76 +26,99 @@
   </section>
 
   <section class="settings">
-    <label>Bind IP <input id="bindIp" placeholder="127.0.0.1" /></label>
-    <label>Port range
-      <span class="row">
-        <input id="portStart" type="number" min="1024" max="65535" />
-        <span class="muted">→</span>
-        <span id="portEnd" class="muted">8801+20</span>
-      </span>
-    </label>
-    <label>Count <input id="portCount" type="number" min="1" max="20" /></label>
-    <label>MCP port <input id="mcpPort" type="number" min="1024" max="65535" /></label>
-    <label>Rotation Strategy
-      <select id="rotationStrategy">
-        <option value="manual">Manual (click to rotate)</option>
-        <option value="auto-fail">Auto on failures</option>
-        <option value="auto-slow">Auto on slow latency (&gt;500ms)</option>
-        <option value="auto-both">Auto on both conditions</option>
-      </select>
-    </label>
-    <label>Health Check Interval
-      <select id="healthCheckInterval">
-        <option value="perrequest">Per request</option>
-        <option value="60000">Every 1 minute</option>
-        <option value="300000">Every 5 minutes</option>
-        <option value="600000">Every 10 minutes</option>
-        <option value="manual">Manual only</option>
-      </select>
-    </label>
-    <label>Quota Alert Threshold
-      <select id="quotaAlertThreshold">
-        <option value="50">Alert at 50% used</option>
-        <option value="70">Alert at 70% used</option>
-        <option value="80">Alert at 80% used</option>
-        <option value="90">Alert at 90% used</option>
-        <option value="100">Never alert</option>
-      </select>
-    </label>
-    <label>Language
-      <select id="languageSelect">
-        <option value="en">English</option>
-        <option value="vi">Tiếng Việt</option>
-        <option value="zh">中文 (简体)</option>
-        <option value="ja">日本語</option>
-        <option value="ko">한국어</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-      </select>
-    </label>
-    <label>Theme
-      <select id="themeSelect">
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
-      </select>
-    </label>
-    <button id="btnSave" title="Save all settings">Save</button>
-    <button id="btnExportSettings" style="background: #8b98a5; color: #101418;" title="Export all settings to JSON file (backup)">⬇ Export</button>
-    <button id="btnImportSettings" style="background: #8b98a5; color: #101418;" title="Import settings from JSON file (restore backup)">⬆ Import</button>
-    <input type="file" id="importFile" style="display: none;" accept=".json" />
+    <!-- Connection Settings -->
+    <div class="settings-section">
+      <div class="settings-section-title">🔗 Connection</div>
+      <label>Bind IP <input id="bindIp" placeholder="127.0.0.1" /></label>
+      <label>Port range
+        <span class="row">
+          <input id="portStart" type="number" min="1024" max="65535" />
+          <span class="muted">→</span>
+          <span id="portEnd" class="muted">8801+20</span>
+        </span>
+      </label>
+      <label>Count <input id="portCount" type="number" min="1" max="20" /></label>
+      <label>MCP port <input id="mcpPort" type="number" min="1024" max="65535" /></label>
+    </div>
+
+    <!-- Proxy Behavior -->
+    <div class="settings-section">
+      <div class="settings-section-title">⚙️ Proxy Behavior</div>
+      <label>Rotation Strategy
+        <select id="rotationStrategy">
+          <option value="manual">Manual (click to rotate)</option>
+          <option value="auto-fail">Auto on failures</option>
+          <option value="auto-slow">Auto on slow latency (&gt;500ms)</option>
+          <option value="auto-both">Auto on both conditions</option>
+        </select>
+      </label>
+      <label>Health Check Interval
+        <select id="healthCheckInterval">
+          <option value="perrequest">Per request</option>
+          <option value="60000">Every 1 minute</option>
+          <option value="300000">Every 5 minutes</option>
+          <option value="600000">Every 10 minutes</option>
+          <option value="manual">Manual only</option>
+        </select>
+      </label>
+      <label>Quota Alert Threshold
+        <select id="quotaAlertThreshold">
+          <option value="50">Alert at 50% used</option>
+          <option value="70">Alert at 70% used</option>
+          <option value="80">Alert at 80% used</option>
+          <option value="90">Alert at 90% used</option>
+          <option value="100">Never alert</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- App Preferences -->
+    <div class="settings-section">
+      <div class="settings-section-title">🎨 Preferences</div>
+      <label>Language
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="zh">中文 (简体)</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+      </label>
+      <label>Theme
+        <select id="themeSelect">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Tools & Utilities -->
+    <div class="settings-section">
+      <div class="settings-section-title">🛠️ Tools</div>
+      <button id="btnSave" title="Save all settings">💾 Save Settings</button>
+      <button id="btnExportSettings" class="secondary" title="Export all settings to JSON file (backup)">⬇ Export</button>
+      <button id="btnImportSettings" class="secondary" title="Import settings from JSON file (restore backup)">⬆ Import</button>
+      <input type="file" id="importFile" style="display: none;" accept=".json" />
+    </div>
   </section>
 
-  <section class="settings mcp">
-    <div class="mcp-line">
-      <span class="dot" id="mcpDot"></span>
-      <b>MCP for AI agents</b>
-      <span id="mcpTools" class="muted">–</span>
+  <section style="padding: 12px 18px; background: var(--panel); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; font-weight: 600;">
+        <span class="dot" id="mcpDot"></span>
+        <span>🤖 MCP for AI Agents</span>
+        <span id="mcpTools" class="muted" style="font-size: 12px; font-weight: normal;">–</span>
+      </div>
+      <div style="font-size: 11px; color: var(--muted); margin-bottom: 6px;">Endpoint:</div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+        <code class="mono" id="mcpUrl" style="flex: 1;">–</code>
+        <button class="copy" id="btnCopyMcp" title="Copy MCP endpoint">copy</button>
+      </div>
+      <div style="font-size: 11px; color: var(--muted); margin-bottom: 6px;">Command:</div>
+      <code class="mono" id="mcpCmd" style="display: block; word-break: break-all; font-size: 11px;">–</code>
     </div>
-    <div class="mcp-line">
-      <code class="mono" id="mcpUrl">–</code>
-      <button class="copy" id="btnCopyMcp">copy</button>
-    </div>
-    <div class="muted">Connect a local agent: <code class="mono" id="mcpCmd">–</code></div>
   </section>
 
   <main>

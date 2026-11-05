@@ -105,20 +105,30 @@ button.primary.stop .spinner { border-color: rgba(255, 255, 255, 0.35); border-t
 }
 .msg { color: var(--danger); }
 .settings {
-  display: flex; gap: 12px; align-items: end; padding: 12px 18px;
-  background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;
+  padding: 18px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.settings-section {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.settings-section-title {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--muted); margin-bottom: 4px; border-bottom: 1px solid var(--line); padding-bottom: 8px;
 }
 .settings label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-.settings label.grow { flex: 1; min-width: 220px; }
-.settings input {
+.settings label.grow { flex: 1; min-width: 100%; }
+.settings input, .settings select {
   background: var(--bg); color: var(--text); border: 1px solid var(--line);
-  border-radius: 6px; padding: 6px 8px; width: 120px; font-size: 13px;
+  border-radius: 6px; padding: 6px 8px; width: 100%; font-size: 13px; font-family: inherit;
 }
-.settings label.grow input { width: 100%; }
+.settings input:focus, .settings select:focus { border-color: var(--accent); outline: none; }
 .settings label .row { display: flex; align-items: center; gap: 6px; }
 .settings button {
-  background: var(--line); color: var(--text); border: 0; border-radius: 6px; padding: 8px 16px;
+  background: var(--accent); color: #06130c; border: 0; border-radius: 6px; padding: 8px 16px;
+  font-weight: 600; font-size: 12px; cursor: pointer; width: 100%; transition: opacity 0.2s;
 }
+.settings button:hover { opacity: 0.9; }
+.settings button.secondary { background: var(--line); color: var(--text); }
 main { padding: 0 18px 18px; }
 table { width: 100%; border-collapse: collapse; margin-top: 12px; }
 th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
